@@ -3,7 +3,7 @@ import org.junit.Test;
 
 public class BaseOperatorTest {
 
-    public final static String FILEPATH = "/home/yl/proj/flink-test/flink-streaming/BaseTextInput.txt";
+    public final static String FILEPATH = "/home/yl/proj/flink-test/flink-streaming/src/main/resources/BaseTextInput.txt";
 
     @Test
     public void testReadTextFile() throws Exception {
@@ -46,8 +46,8 @@ public class BaseOperatorTest {
     }
 
     @Test
-    public void testSplitTemplate() throws Exception {
-        new BaseOperator().splitTemplate();
+    public void testSideOutputTemplate() throws Exception {
+        new BaseOperator().sideOutputTemplate();
     }
 
     @Test
@@ -58,6 +58,21 @@ public class BaseOperatorTest {
     @Test
     public void testUnionTemplate() throws Exception {
         new BaseOperator().unionTemplate();
+    }
+
+    @Test
+    public void testCoMapTemplate() throws Exception {
+        new BaseOperator().coMapTemplate();
+    }
+
+    @Test
+    public void testCoFlatMapTemplate() throws Exception {
+        new BaseOperator().coFlatMapTemplate();
+    }
+
+    @Test
+    public void testIterateTemplate() throws Exception {
+        new BaseOperator().iterateTemplate();
     }
 
 }

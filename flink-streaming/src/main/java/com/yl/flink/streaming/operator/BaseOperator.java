@@ -44,7 +44,8 @@ public class BaseOperator {
 
         TextInputFormat fmt = new TextInputFormat(new Path(filePath));
         TypeInformation<String> typeInfo = BasicTypeInfo.STRING_TYPE_INFO;
-        DataStreamSource<String> dds = env.readFile(fmt, filePath, FileProcessingMode.PROCESS_CONTINUOUSLY, 10000, typeInfo);
+//        DataStreamSource<String> dds = env.readFile(fmt, filePath, FileProcessingMode.PROCESS_CONTINUOUSLY, 10000, typeInfo);
+        DataStreamSource<String> dds = env.readFile(fmt, filePath, FileProcessingMode.PROCESS_ONCE, 10000, typeInfo);
         dds.print();
 
         env.execute();
@@ -66,7 +67,7 @@ public class BaseOperator {
         DataStreamSource<Long> dds1 = env.fromSequence(1, 5);
         DataStream<Tuple2<Long, Integer>> dds2 = dds1.map(new MapFunction<Long, Tuple2<Long, Integer>>() {
             @Override
-            public Tuple2<Long, Integer> map(Long values) throws Exception {
+            public Tuple2<Long, Integer> map(Long values) {
                 return new Tuple2<Long, Integer>(values * 100, values.hashCode());
             }
         });
@@ -105,9 +106,9 @@ public class BaseOperator {
 
         DataStream<Tuple2<Integer, Integer>> ds1 = env.fromCollection(lst);
 //        KeyedStream<Tuple2<Integer, Integer>, Tuple> ks1 = ds1.keyBy(0);
-        KeyedStream<Tuple2<Integer, Integer>, Object> ks1 = ds1.keyBy(new KeySelector<Tuple2<Integer, Integer>, Object>() {
+        KeyedStream<Tuple2<Integer, Integer>, Integer> ks1 = ds1.keyBy(new KeySelector<Tuple2<Integer, Integer>, Integer>() {
             @Override
-            public Object getKey(Tuple2<Integer, Integer> value) throws Exception {
+            public Integer getKey(Tuple2<Integer, Integer> value) throws Exception {
                 return value.f0;
             }
         });
@@ -128,7 +129,12 @@ public class BaseOperator {
         StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
 
         DataStream<Trade> ds1 = env.fromCollection(lst);
-        DataStream<Trade> ds2 = ds1.keyBy("cardNum").reduce(new ReduceFunction<Trade>() {
+        DataStream<Trade> ds2 = ds1.keyBy(new KeySelector<Trade, String>() {
+            @Override
+            public String getKey(Trade value) throws Exception {
+                return value.getCardNum();
+            }
+        }).reduce(new ReduceFunction<Trade>() {
             @Override
             public Trade reduce(Trade value1, Trade value2) throws Exception {
                 System.out.println(value1+"  "+value2);

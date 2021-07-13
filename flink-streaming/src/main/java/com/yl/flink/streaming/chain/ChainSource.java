@@ -6,7 +6,7 @@ import org.apache.flink.streaming.api.functions.source.RichSourceFunction;
 
 public class ChainSource extends RichSourceFunction<Tuple2<String, Integer>> {
 
-    int sleep = 3000;
+    final public static int sleep = 3000;
 
     @Override
     public void run(SourceContext<Tuple2<String, Integer>> ctx) throws Exception {

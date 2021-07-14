@@ -11,6 +11,7 @@ public class DefaultChainTemplate {
     public static void main(String[] args) throws Exception {
         StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
         env.setParallelism(3);
+
         DataStream<Tuple2<String, Integer>> ds = env.addSource(new ChainSource()).name("MyDataSource");
         DataStream<Tuple2<String, Integer>> flt = ds.filter(new RichFilterFunction<Tuple2<String, Integer>>() {
             @Override
@@ -34,6 +35,7 @@ public class DefaultChainTemplate {
             }
         }).name("MyMap2");
         map2.print();
+
         env.execute();
     }
 

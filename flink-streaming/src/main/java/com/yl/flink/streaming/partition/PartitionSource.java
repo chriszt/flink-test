@@ -4,6 +4,7 @@ import com.yl.flink.streaming.beans.Trade;
 import org.apache.flink.streaming.api.functions.source.RichSourceFunction;
 
 public class PartitionSource extends RichSourceFunction<Trade> {
+
     @Override
     public void run(SourceContext<Trade> ctx) throws Exception {
         System.out.println("[Source] " + getRuntimeContext().getTaskNameWithSubtasks());

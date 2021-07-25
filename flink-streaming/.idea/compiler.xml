@@ -9,5 +9,8 @@
         <module name="flink-streaming" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="flink-streaming" target="8" />
+    </bytecodeTargetLevel>
   </component>
 </project>

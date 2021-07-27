@@ -14,6 +14,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <flink.version>1.13.1</flink.version>
         <scala.version>2.11</scala.version>
+        <log4j.version>2.12.1</log4j.version>
         <junit.version>4.13.2</junit.version>
     </properties>
 
@@ -42,17 +43,25 @@
             <version>${flink.version}</version>
         </dependency>
 
+        <!--
         <dependency>
             <groupId>org.apache.flink</groupId>
             <artifactId>flink-table-planner_${scala.version}</artifactId>
             <version>${flink.version}</version>
         </dependency>
+        -->
 
-        <!--dependency>
+        <dependency>
             <groupId>org.apache.flink</groupId>
-            <artifactId>flink-streaming-scala_${scala.version}</artifactId>
+            <artifactId>flink-table-planner-blink_${scala.version}</artifactId>
             <version>${flink.version}</version>
-        </dependency-->
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-slf4j-impl</artifactId>
+            <version>${log4j.version}</version>
+        </dependency>
 
         <dependency>
             <groupId>junit</groupId>

@@ -16,6 +16,7 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <flink.version>1.13.1</flink.version>
         <scala.version>2.11</scala.version>
+        <log4j.version>2.12.1</log4j.version>
         <junit.version>4.13.2</junit.version>
     </properties>
 
@@ -36,6 +37,12 @@
             <groupId>org.apache.flink</groupId>
             <artifactId>flink-clients_${scala.version}</artifactId>
             <version>${flink.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-slf4j-impl</artifactId>
+            <version>${log4j.version}</version>
         </dependency>
 
         <dependency>

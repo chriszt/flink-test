@@ -5,6 +5,7 @@
       <module fileurl="file://$PROJECT_DIR$/flink-sql/flink-sql.iml" filepath="$PROJECT_DIR$/flink-sql/flink-sql.iml" />
       <module fileurl="file://$PROJECT_DIR$/flink-streaming/flink-streaming.iml" filepath="$PROJECT_DIR$/flink-streaming/flink-streaming.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/flink-test.iml" filepath="$PROJECT_DIR$/.idea/flink-test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/flinkCEP/flinkCEP.iml" filepath="$PROJECT_DIR$/flinkCEP/flinkCEP.iml" />
     </modules>
   </component>
 </project>

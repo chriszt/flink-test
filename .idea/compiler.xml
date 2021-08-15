@@ -8,11 +8,13 @@
         <outputRelativeToContentRoot value="true" />
         <module name="flink-sql" />
         <module name="flink-streaming" />
+        <module name="flinkCEP" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="flink-sql" target="8" />
       <module name="flink-streaming" target="8" />
+      <module name="flinkCEP" target="8" />
     </bytecodeTargetLevel>
   </component>
 </project>

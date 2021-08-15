@@ -22,6 +22,7 @@ public class MyTest {
 
         DataStream<String> rawStream = env.readTextFile(tabPath);
 //        rawStream.print("rawStream");
+
         DataStream<Tab1> tabStream = rawStream.map(new MapFunction<String, Tab1>() {
             @Override
             public Tab1 map(String s) throws Exception {

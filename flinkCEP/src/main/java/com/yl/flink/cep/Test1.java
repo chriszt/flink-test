@@ -5,6 +5,7 @@ import org.apache.flink.cep.PatternSelectFunction;
 import org.apache.flink.cep.PatternStream;
 import org.apache.flink.cep.pattern.Pattern;
 import org.apache.flink.cep.pattern.conditions.IterativeCondition;
+import org.apache.flink.cep.pattern.conditions.SimpleCondition;
 import org.apache.flink.streaming.api.datastream.DataStream;
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
 import org.apache.flink.streaming.api.windowing.time.Time;
@@ -28,35 +29,39 @@ public class Test1 {
 
         StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
         DataStream<LoginEvent> loginStream = env.fromCollection(lst);
-//        ds.print("ds");
+        loginStream.print("loginStream");
 
-        Pattern<LoginEvent, LoginEvent> loginFailPattern = Pattern.<LoginEvent>begin("first").where(new IterativeCondition<LoginEvent>() {
+        Pattern<LoginEvent, ?> loginFailPattern = Pattern.<LoginEvent>begin("first").where(new IterativeCondition<LoginEvent>() {
             @Override
             public boolean filter(LoginEvent event, Context<LoginEvent> ctx) throws Exception {
 //                System.out.println(event);
-                return "fail".equals(event.getType());
+                return event.getType().equals("fail");
             }
         }).next("second").where(new IterativeCondition<LoginEvent>() {
             @Override
             public boolean filter(LoginEvent event, Context<LoginEvent> ctx) throws Exception {
-                return "fail".equals(event.getType());
+                return event.getType().equals("fail");
             }
         }).next("three").where(new IterativeCondition<LoginEvent>() {
             @Override
             public boolean filter(LoginEvent event, Context<LoginEvent> ctx) throws Exception {
-                return "fail".equals(event.getType());
+                return event.getType().equals("fail");
             }
         }).within(Time.seconds(10));
 
         PatternStream<LoginEvent> patternStream = CEP.pattern(loginStream.keyBy(LoginEvent::getUserId), loginFailPattern);
+//        PatternStream<LoginEvent> patternStream = CEP.pattern(loginStream, loginFailPattern);
 
         DataStream<String> loginFailStream = patternStream.select(new PatternSelectFunction<LoginEvent, String>() {
             @Override
             public String select(Map<String, List<LoginEvent>> pattern) throws Exception {
-                List<LoginEvent> second = pattern.get("three");
-                return second.get(0).getUserId() + ", " + second.get(0).getIp() + ", " + second.get(0).getType();
+//                System.out.println("***********");
+//                List<LoginEvent> second = pattern.get("three");
+//                return second.get(0).getUserId() + ", " + second.get(0).getIp() + ", " + second.get(0).getType();
+                return "****";
             }
         });
+
         loginFailStream.print("loginFailStream");
 
         try {
